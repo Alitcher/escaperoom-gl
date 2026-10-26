@@ -1,0 +1,184 @@
+{
+  "version": 1,
+  "name": "Convention Green Room",
+  "author": "alicia",
+  "spawn": {
+    "position": [0, 1.6, 2.2],
+    "yaw": 180
+  },
+  "lights": [
+    {
+      "type": "directional",
+      "direction": [-0.3, -1, -0.4],
+      "color": [1, 0.97, 0.9],
+      "intensity": 0.6
+    },
+    {
+      "type": "point",
+      "position": [0, 2.6, 0],
+      "color": [1, 0.9, 0.8],
+      "intensity": 1.2
+    }
+  ],
+  "items": [
+    {
+      "id": "key",
+      "name": "Prop key"
+    },
+    {
+      "id": "note",
+      "name": "Note"
+    }
+  ],
+  "entities": [
+    {
+      "id": "floor",
+      "model": "floor.glb",
+      "transform": {
+        "position": [0, 0, 0],
+        "scale": [6, 1, 6]
+      }
+    },
+    {
+      "id": "walls",
+      "model": "room.glb",
+      "transform": {
+        "position": [0, 0, 0]
+      }
+    },
+    {
+      "id": "mannequin",
+      "model": "mannequin.glb",
+      "transform": {
+        "position": [-2.4, 0, -2.4],
+        "rotation": [0, 30, 0]
+      }
+    },
+    {
+      "id": "poster",
+      "model": "poster.glb",
+      "transform": {
+        "position": [-1.2, 1.8, -2.9]
+      }
+    },
+    {
+      "id": "mika",
+      "model": "npc.glb",
+      "transform": {
+        "position": [1.8, 0, 1],
+        "rotation": [0, -120, 0]
+      },
+      "interaction": {
+        "type": "npc",
+        "name": "Mika",
+        "lines": [
+          "I locked the prop key in the drawer. Silly me!",
+          "The drawer lock wants the total of the three dice on top of it.",
+          "Hold an item with 1-9, then use it on things."
+        ]
+      }
+    },
+    {
+      "id": "drawer",
+      "model": "drawer.glb",
+      "transform": {
+        "position": [-2, 0.5, -1]
+      },
+      "interaction": {
+        "type": "container",
+        "locked": true,
+        "contains": "key"
+      }
+    },
+    {
+      "id": "dice",
+      "model": "dice.glb",
+      "parent": "drawer",
+      "transform": {
+        "position": [0, 0.54, 0]
+      },
+      "interaction": {
+        "type": "dice",
+        "count": 3,
+        "sides": 6
+      }
+    },
+    {
+      "id": "drawer-lock",
+      "model": "keypad.glb",
+      "parent": "drawer",
+      "transform": {
+        "position": [0.25, 0.25, 0.28]
+      },
+      "interaction": {
+        "type": "keypad",
+        "codeFrom": "dice",
+        "opens": "drawer"
+      }
+    },
+    {
+      "id": "key",
+      "model": "prop_key.glb",
+      "parent": "drawer",
+      "transform": {
+        "position": [0, 0.1, 0]
+      },
+      "interaction": {
+        "type": "pickup",
+        "item": "key"
+      }
+    },
+    {
+      "id": "cabinet",
+      "model": "cabinet.glb",
+      "transform": {
+        "position": [2.2, 1, -2.4]
+      },
+      "interaction": {
+        "type": "container",
+        "locked": true,
+        "unlockedBy": "key",
+        "contains": "note"
+      }
+    },
+    {
+      "id": "note",
+      "model": "note.glb",
+      "parent": "cabinet",
+      "transform": {
+        "position": [0, 0.1, 0]
+      },
+      "interaction": {
+        "type": "readable",
+        "text": "Stage door code: 4827"
+      }
+    },
+    {
+      "id": "door",
+      "model": "door.glb",
+      "transform": {
+        "position": [0, 1, -3]
+      },
+      "interaction": {
+        "type": "exit"
+      }
+    },
+    {
+      "id": "keypad",
+      "model": "keypad.glb",
+      "parent": "door",
+      "transform": {
+        "position": [0.6, 0.2, 0]
+      },
+      "interaction": {
+        "type": "keypad",
+        "code": "4827",
+        "opens": "door"
+      }
+    }
+  ],
+  "win": {
+    "exit": "door",
+    "message": "You made it to the con floor!"
+  }
+}

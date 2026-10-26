@@ -1,0 +1,19 @@
+# Build output
+/build/
+/out/
+*.exe
+*.obj
+*.pdb
+
+# vcpkg
+/vcpkg_installed/
+
+# IDE
+/.vs/
+/.vscode/
+!/.vscode/settings.json
+*.user
+
+# OS
+.DS_Store
+Thumbs.db
